@@ -13,12 +13,6 @@ export type EmailData = {
 
 async function sendEmail(emailData: EmailData): Promise<void> {
     try {
-        // Validate required fields
-        const { from, to, worker, caseid, from_name, subject, html } = emailData;
-        if (!from || !to || !worker || !caseid || !from_name || !subject || !html) {
-            throw new Error("Please fill in all required fields: Sending From, Sending To, Worker Name, and Case ID.");
-        }
-
 
 
         const smtpip = (await globalSettingsDao.getGlobalSettings()).smtpip
