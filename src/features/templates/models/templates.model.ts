@@ -19,7 +19,8 @@ const schema = new Schema<ITemplate>(
             type: String,
             require: true
         },
-        email: String
+        email: String,
+        emailName: String
     },
     { timestamps: true }
 );

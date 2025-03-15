@@ -2,11 +2,7 @@ import { model, Schema } from "mongoose";
 import { IEmail } from "../interfaces/emails.interface";
 
 const schema = new Schema<IEmail>({
-    feilds: {
-        type: Schema.Types.Mixed,
-        required: true
-    },
-    markup: {
+    html: {
         type: String,
         required: true
     },
@@ -15,8 +11,7 @@ const schema = new Schema<IEmail>({
         required: true,
         ref: "users"
     },
-    sentTo:
-    {
+    to: {
         type: String,
         required: true,
     },
@@ -24,13 +19,19 @@ const schema = new Schema<IEmail>({
         type: String,
         required: true,
     },
-    values: {
-        type: Schema.Types.Mixed,
-        required: true
-    },
     workerName: {
         type: String,
         required: true,
+    },
+    caseId: String,
+    from: {
+        type: String,
+        required: true,
+    },
+    template: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "templates"
     }
 
 

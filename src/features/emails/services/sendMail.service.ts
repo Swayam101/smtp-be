@@ -1,6 +1,7 @@
 import axios from "axios";
+import globalSettingsDao from "../../settings/dao/global-settings.dao";
 
-type EmailData = {
+export type EmailData = {
     from: string;
     to: string;
     worker: string;
@@ -20,7 +21,7 @@ async function sendEmail(emailData: EmailData): Promise<void> {
 
 
 
-        const smtpip = "http://ip:port/send_email"
+        const smtpip = (await globalSettingsDao.getGlobalSettings()).smtpip
 
         await axios.post(smtpip, emailData, {
             headers: {

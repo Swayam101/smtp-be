@@ -34,11 +34,11 @@ export default async (req: Request, res: Response) => {
       message: "user is banned by admin",
       title: "USER AUTH",
     });
-    
+
   const token = authLib.jwtLib.generateJWT({
     id: user.id,
     username: user.username,
-    role:user.role
+    role: user.role
   });
 
   const authToken = await authDao.token.createToken(user.id, token);
@@ -50,6 +50,7 @@ export default async (req: Request, res: Response) => {
     message: "user login successfull",
     data: {
       token: authToken.token,
+      user
     },
   });
 };

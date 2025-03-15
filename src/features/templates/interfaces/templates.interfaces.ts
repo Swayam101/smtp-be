@@ -4,4 +4,5 @@ export interface ITemplate {
     name: string
     category: string
     email: string
+    emailName: string
 }

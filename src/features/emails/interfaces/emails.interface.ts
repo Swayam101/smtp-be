@@ -1,11 +1,13 @@
 import { ObjectId } from "mongodb"
-import { ITemplate } from "../../templates/interfaces/templates.interfaces";
 import { Document } from "mongoose";
 
-export interface IEmail extends ITemplate, Document {
+export interface IEmail extends Document {
     sentBy: ObjectId,
-    sentTo: string,
+    from: string
+    to: string,
     subject: string,
-    values: { [key: string]: string },
+    html: string,
+    caseId: string
     workerName: string,
+    template: ObjectId
 }

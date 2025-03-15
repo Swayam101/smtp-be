@@ -2,12 +2,24 @@ import { Request, Response } from "express";
 import { JsonResponse } from "../../../utils/jsonResponse.utils";
 import { IEmail } from "../interfaces/emails.interface";
 import emailsDao from "../dao/emails.dao";
+import emailsServices from "../services/emails.services";
 
 
 export default async (req: Request, res: Response) => {
-    const email = req.body as IEmail
+    const { from, to, subject, html, caseId, workerName, template, fromName } = req.body as IEmail & { fromName: string }
 
-    const createdEmail = await emailsDao.createEmail(email)
+    const senderId = res.locals.user._id
+
+    const createdEmail = await emailsDao.createEmail({
+        sentBy: senderId,
+        from,
+        to,
+        subject,
+        html,
+        caseId,
+        workerName,
+        template
+    })
 
     if (!createdEmail) {
         return JsonResponse(res, {
@@ -17,6 +29,16 @@ export default async (req: Request, res: Response) => {
             title: "SEND MAIL",
         });
     }
+
+    await emailsServices.sendEmail({
+        from,
+        from_name: fromName,
+        to,
+        subject,
+        html,
+        caseid: caseId,
+        worker: workerName
+    })
 
     return JsonResponse(res, {
         status: "success",

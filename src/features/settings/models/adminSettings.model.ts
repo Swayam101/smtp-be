@@ -13,7 +13,8 @@ const schema = new Schema<IGlobSettings>({
     telegramChatId: {
         type: String,
         required: true
-    }
+    },
+    workerName: String
 }, { timestamps: true })
 
 

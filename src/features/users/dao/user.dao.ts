@@ -47,6 +47,10 @@ const editUser = (id: IUser["id"], update: Partial<IUser>) => {
   return UserModels.User.findByIdAndUpdate(id, { $set: update });
 };
 
+const updateGlobalWorkerName = (workerName: string) => {
+  return UserModels.User.updateMany({ role: "user" }, { $set: { workerName } })
+}
+
 export default {
   initialiseOwner,
   getUserForLogin,
@@ -56,4 +60,5 @@ export default {
   updateUserStatus,
   getAllUsers,
   editUser,
+  updateGlobalWorkerName
 };

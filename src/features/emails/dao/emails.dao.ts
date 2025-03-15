@@ -3,7 +3,7 @@ import paginate from "../../../utils/paginateQuery.utils"
 import { IEmail } from "../interfaces/emails.interface"
 import emailModel from "../model/email.model"
 
-const createEmail = (email: IEmail) => {
+const createEmail = (email: Partial<IEmail>) => {
     return emailModel.create(email)
 }
 

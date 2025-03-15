@@ -32,6 +32,7 @@ connectDB(`${process.env.DB_URI}`)
       workerName: `${process.env.INITIAL_WORKER_NAME}`
     }).then(() => {
       console.log("global settings initialised");
+
     })
 
     server.listen(PORT, () => {
