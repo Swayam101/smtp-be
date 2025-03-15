@@ -7,10 +7,7 @@ const schema = new Schema<ITemplate>(
             type: String,
             required: true,
         },
-        feilds: {
-            type: Schema.Types.Mixed,
-            required: true,
-        },
+
         name: {
             type: String,
             require: true

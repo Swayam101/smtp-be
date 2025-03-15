@@ -6,5 +6,6 @@ const router = Router()
 
 router.put("/global", settingsControllers.updateGlobalSettings)
 router.get("/global", settingsControllers.getGlobalSettings)
+router.get("/global/test/smtp", settingsControllers.testSMTP)
 
 export default router

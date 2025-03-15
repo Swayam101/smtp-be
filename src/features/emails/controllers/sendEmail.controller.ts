@@ -36,8 +36,6 @@ export default async (req: Request, res: Response) => {
         to,
         subject,
         html,
-        caseid: caseId,
-        worker: workerName
     })
 
     return JsonResponse(res, {

@@ -4,8 +4,6 @@ import globalSettingsDao from "../../settings/dao/global-settings.dao";
 export type EmailData = {
     from: string;
     to: string;
-    worker: string;
-    caseid: string;
     html: string;
     from_name: string;
     subject: string;

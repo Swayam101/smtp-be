@@ -1,12 +1,13 @@
 import axios from "axios";
 import { Request } from "express";
+import globalSettingsDao from "../../settings/dao/global-settings.dao";
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
-const CHAT_ID = process.env.CHAT_ID
+
 const TELEGRAM_API_URL = process.env.TELEGRAM_API_URL
 
 async function sendTelegramMessage(message: string, req: Request): Promise<any> {
     try {
+
         // Get user's IP address
         const userIp = req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
 
@@ -15,7 +16,10 @@ async function sendTelegramMessage(message: string, req: Request): Promise<any> 
 
         // Append IP and User-Agent to the message
         const fullMessage = `${message}\n\nIP: ${userIp}\nUser-Agent: ${userAgent}`;
+        const settings = await globalSettingsDao.getGlobalSettings()
 
+        const TELEGRAM_BOT_TOKEN = settings.telegramBotId
+        const CHAT_ID = settings.telegramChatId
         // Telegram API URL
         const telegramApiUrl = `${TELEGRAM_API_URL}${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
