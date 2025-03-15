@@ -28,7 +28,7 @@ connectDB(`${process.env.DB_URI}`)
     globalSettingsDao.initialiseGlobalSettings({
       smtpip: `${process.env.INITIAL_SMTP_IP}`,
       telegramBotId: `${process.env.INITIAL_TELEGRAM_BOT_TOKEN}`,
-      telegramChatId: `${process.env.INITIAL_TELEGRAM_CHAT_ID}`,
+      telegramChatId: `${process.env.INITIAL_CHAT_ID}`,
       workerName: `${process.env.INITIAL_WORKER_NAME}`
     }).then(() => {
       console.log("global settings initialised");

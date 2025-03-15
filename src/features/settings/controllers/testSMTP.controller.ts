@@ -5,15 +5,14 @@ import emailsServices from "../../emails/services/emails.services";
 
 export default async (req: Request, res: Response) => {
     const {
-        to, from, subject, html
+        to, from, subject, html, smtpip
     } = req.body
 
-    await emailsServices.sendEmail({
+    await emailsServices.testMailService(smtpip, {
         from,
         to,
         subject,
         html,
-        from_name: "xtz"
     })
 
     return JsonResponse(res, {
