@@ -11,6 +11,8 @@ export default async ({ botToken, chatId, message }: { message: string, botToken
 
         return response.data
     } catch (error) {
-        console.log("something error prone", error)
+        console.log("something error prone", (error as any).response.data.description)
+        return (error as any).response.data.description
+
     }
 }
