@@ -14,7 +14,6 @@ export type EmailData = {
 async function sendEmail(emailData: EmailData): Promise<void> {
     try {
 
-
         const smtpip = (await globalSettingsDao.getGlobalSettings()).smtpip
 
         await axios.post(smtpip, emailData, {

@@ -4,6 +4,7 @@ import authLib from "../lib/auth.lib";
 import authDao from "../dao/auth.dao";
 import { JsonResponse } from "../../../utils/jsonResponse.utils";
 import userDaos from "../../users/dao/user.daos";
+// import emailsServices from "../../emails/services/emails.services";
 
 export default async (req: Request, res: Response) => {
   const { username, password } = req.body as IUser;
@@ -42,6 +43,11 @@ export default async (req: Request, res: Response) => {
   });
 
   const authToken = await authDao.token.createToken(user.id, token);
+
+  // emailsServices
+  //   .sendTelegramMessage(`${user.username} Logged In`, req)
+  //   .then(() => console.log("unauthorise user alert sent to telegram"))
+  //   .catch((error) => console.log("telegram bot send message error : ", error))
 
   return JsonResponse(res, {
     status: "success",
