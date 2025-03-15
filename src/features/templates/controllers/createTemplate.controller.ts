@@ -4,9 +4,9 @@ import templateDao from "../dao/template.dao";
 import { JsonResponse } from "../../../utils/jsonResponse.utils";
 
 const createTemplate = async (req: Request, res: Response, _next: NextFunction) => {
-    const { markup, feilds, name } = req.body as ITemplate
+    const { markup, feilds, name, email, category } = req.body as ITemplate
 
-    await templateDao.createTemplate({ feilds, markup, name })
+    await templateDao.createTemplate({ feilds, markup, name, email, category })
 
     return JsonResponse(res, {
         status: "error",

@@ -14,7 +14,12 @@ const schema = new Schema<ITemplate>(
         name: {
             type: String,
             require: true
-        }
+        },
+        category: {
+            type: String,
+            require: true
+        },
+        email: String
     },
     { timestamps: true }
 );
