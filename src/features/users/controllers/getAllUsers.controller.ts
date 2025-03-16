@@ -9,27 +9,19 @@ import { ERoles, IUser } from "../interfaces/user.interface";
 export default async (req: Request, res: Response) => {
   const { page, limit, search, role } = req.query;
 
-  console.log("res locals user ,", res.locals.user);
+  // Prevent fetching owners for everyone
+  const filter: FilterQuery<IUser> = { role: { $ne: ERoles.OWNER } };
 
-  const isAdminFetchingOwners = res.locals.user.role === ERoles.ADMIN && role === ERoles.OWNER
-
-  if (isAdminFetchingOwners) {
-    return JsonResponse(res, {
-      status: "error",
-      statusCode: 400,
-      message: "admin cannot fetch owners",
-      title: "UNAUTHORISED ACCESS",
-    });
+  if (role && role !== ERoles.OWNER) {
+    filter.role = role;
   }
 
-  const filter: FilterQuery<IUser> = {};
-
-  if (role) filter.role = role
-
   if (search) {
-    filter.username = { $regex: search ?? "", $options: "i" }
-    filter.workerName = { $regex: search ?? "", $options: "i" }
-  };
+    filter.$or = [
+      { username: { $regex: search, $options: "i" } },
+      { workerName: { $regex: search, $options: "i" } },
+    ];
+  }
 
   const users = await userDaos.user.getAllUsers(filter, {
     page: parseInt(page?.toString() ?? "1"),

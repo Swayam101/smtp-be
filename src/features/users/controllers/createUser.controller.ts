@@ -5,7 +5,7 @@ import { IUser } from "../interfaces/user.interface";
 import userDaos from "../dao/user.daos";
 
 export default async (req: Request, res: Response) => {
-  const { username, password,role,workerName } = req.body as IUser;
+  const { username, password, role, workerName } = req.body as IUser;
   
   const user = await userDaos.user.createUser({username, password,role,workerName});
 
