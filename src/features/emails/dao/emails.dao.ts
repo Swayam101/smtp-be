@@ -12,7 +12,7 @@ const getEmailById = (id: string) => {
 }
 
 const getAllEmails = ({ limit, page }: { page: number, limit: number }, filter?: FilterQuery<IEmail>) => {
-    return paginate(emailModel, filter || {}, page, limit, { createdAt: -1 }, "users")
+    return paginate(emailModel, filter || {}, page, limit, { createdAt: -1 }, "sentBy")
 }
 
 export default {

@@ -9,7 +9,7 @@ const schema = new Schema<IEmail>({
     sentBy: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "users"
+        ref: "user"
     },
     to: {
         type: String,

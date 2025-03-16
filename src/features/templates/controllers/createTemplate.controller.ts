@@ -4,17 +4,36 @@ import templateDao from "../dao/template.dao";
 import { JsonResponse } from "../../../utils/jsonResponse.utils";
 
 const createTemplate = async (req: Request, res: Response, _next: NextFunction) => {
-    const { markup, feilds, name, email, category, emailName } = req.body as ITemplate
+    try {
+        const { markup, name, email, category, emailName } = req.body as ITemplate;
 
-    await templateDao.createTemplate({ feilds, markup, name, email, category, emailName })
+        if (!markup || !name || !email || !category || !emailName) {
+            return JsonResponse(res, {
+                status: "error",
+                statusCode: 400,
+                message: "All fields are required",
+                title: "TEMPLATE CREATION ERROR",
+            });
+        }
 
-    return JsonResponse(res, {
-        status: "error",
-        statusCode: 400,
-        message: "template created successfully",
-        title: "TEMPLATE CREATION",
-    });
+        const template = await templateDao.createTemplate({ markup, name, email, category, emailName });
 
-}
+        return JsonResponse(res, {
+            status: "success",
+            statusCode: 201,
+            message: "Template created successfully",
+            title: "TEMPLATE CREATION",
+            data: template,
+        });
+    } catch (error) {
+        console.error("Error creating template:", error);
+        return JsonResponse(res, {
+            status: "error",
+            statusCode: 500,
+            message: "Internal Server Error",
+            title: "TEMPLATE CREATION ERROR",
+        });
+    }
+};
 
-export default createTemplate
+export default createTemplate;

@@ -7,7 +7,6 @@ import emailsDao from "../dao/emails.dao";
 export default async (req: Request, res: Response) => {
 
     const { page, limit } = req.query
-
     const emails = await emailsDao.getAllEmails({ page: parseInt(page?.toString() ?? "1"), limit: parseInt(limit?.toString() ?? "10") })
 
     return JsonResponse(res, {
