@@ -18,9 +18,17 @@ Follow these steps to deploy the project:
 
 ### 1. Unzip the Project
 
-If you received a `.zip` file, extract its contents to a suitable directory.
+If you received a `.zip` file named `smtp-be.zip`, extract its contents to a suitable directory.
 
-### 2. Install Dependencies
+### 2. Navigate to the Project Directory
+
+Open a terminal and move into the extracted folder:
+
+```sh
+cd smtp-be
+```
+
+### 3. Install Dependencies
 
 Run the following command to install all required dependencies:
 
@@ -28,21 +36,31 @@ Run the following command to install all required dependencies:
 npm install
 ```
 
-### 3. Required Environment Variables
+### 4. Required Environment Variables
 
 The following environment variables must be set before running the project:
 
-- **DB_URI**: Must be a valid MongoDB connection string.
-- **JWT_SECRET**: A strong random string for JWT authentication security.
-- **INITIAL_SMTP_IP**: Ensure it is correctly formatted.
-- **INITIAL_TELEGRAM_BOT_TOKEN**: A valid Telegram bot token.
-- **INITIAL_CHAT_ID**: Must be a valid Telegram chat/group ID.
-- **TELEGRAM_API_URL**: Default API URL is `https://api.telegram.org/bot`.
-- **INITIAL_WORKER_NAME**: The default worker name assigned to all users.
+```
+DB_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_random_jwt_auth_secret
+INITIAL_SMTP_IP=your_initial_smtp_ip
+INITIAL_TELEGRAM_BOT_TOKEN=your_initial_telegram_bot_token
+INITIAL_CHAT_ID=your_initial_chat_id
+TELEGRAM_API_URL=https://api.telegram.org/bot
+INITIAL_WORKER_NAME=your_initial_worker_name
+```
 
-Ensure these variables are set in your deployment environment.
+#### :warning: Important Notes on Environment Variables
 
-### 4. Build the Project
+- **DB_URI:** Must be a valid MongoDB connection string.
+- **JWT_SECRET:** Use a strong random string for JWT authentication security.
+- **INITIAL_SMTP_IP:** Ensure it is correctly formatted.
+- **INITIAL_TELEGRAM_BOT_TOKEN:** Must be a valid Telegram bot token.
+- **INITIAL_CHAT_ID:** Validate it belongs to a valid Telegram chat/group.
+- **TELEGRAM_API_URL:** The default API URL is `https://api.telegram.org/bot`.
+- **INITIAL_WORKER_NAME:** This is the default worker name assigned to all users.
+
+### 5. Build the Project
 
 Run the following command to compile TypeScript files into JavaScript:
 
@@ -52,7 +70,7 @@ npm run build
 
 This will generate a `dist` folder containing the compiled JavaScript files.
 
-### 5. Start the Server
+### 6. Start the Server
 
 Run the following command to start the server:
 
@@ -60,24 +78,7 @@ Run the following command to start the server:
 npm run start
 ```
 
-## Deployment Instructions
-
-For deploying on a server, follow these additional steps:
-
-### Using PM2 for Process Management
-
-To keep the server running in the background, use PM2:
-
-```sh
-npm install -g pm2
-npm run build
-npm start &
-pm2 start dist/index.js --name confidential
-pm2 save
-pm2 startup
-```
-
-### Deploying with Docker
+## Deploying with Docker
 
 A `Dockerfile` is already included in the project. To deploy using Docker, follow these steps:
 
@@ -90,7 +91,7 @@ docker build -t confidential .
 2. Run the container:
 
 ```sh
-docker run -d -p 3000:3000 -e DB_URI=your_mongodb_atlas_uri -e JWT_SECRET=your_random_jwt_auth_secret -e INITIAL_SMTP_IP=your_initial_smtp_ip -e INITIAL_TELEGRAM_BOT_TOKEN=your_initial_telegram_bot_token -e INITIAL_CHAT_ID=your_initial_chat_id -e TELEGRAM_API_URL=https://api.telegram.org/bot -e INITIAL_WORKER_NAME=your_initial_worker_name confidential
+docker run -d -p 3000:3000 --env-file .env confidential
 ```
 
 ## Available Scripts
@@ -104,7 +105,7 @@ The project provides the following npm scripts:
 ## Project Structure
 
 ```
-📦 confidential
+📦 smtp-be
  ┣ 📂 dist          # Compiled JavaScript files
  ┣ 📂 src           # Source TypeScript files
  ┣ 📜 package.json  # Dependencies & scripts
