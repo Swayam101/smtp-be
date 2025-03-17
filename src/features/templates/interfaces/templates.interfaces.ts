@@ -4,4 +4,5 @@ export interface ITemplate {
     category: string
     email: string
     emailName: string
+    inactive: boolean
 }

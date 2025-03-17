@@ -17,7 +17,11 @@ const schema = new Schema<ITemplate>(
             require: true
         },
         email: String,
-        emailName: String
+        emailName: String,
+        inactive: {
+            type: Boolean,
+            default: false
+        }
     },
     { timestamps: true }
 );

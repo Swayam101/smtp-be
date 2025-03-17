@@ -6,15 +6,18 @@ import { ITemplate } from "../interfaces/templates.interfaces";
 
 
 export default async (req: Request, res: Response) => {
-    const { page, limit, search } = req.query
+    const { page, limit, search, inactive } = req.query
 
     const filter: FilterQuery<ITemplate> = {};
 
-    if (search) {
+    if (search)
         filter.name = { $regex: search ?? "", $options: "i" }
-    };
+    console.log("inactive  :  ", inactive);
 
-    const templates = await templateDao.getAllTemplates({ page: parseInt(page?.toString() ?? "1"), limit: parseInt(limit?.toString() ?? "1") })
+    if (inactive) filter.inactive = inactive?.toString() === "true"
+
+
+    const templates = await templateDao.getAllTemplates(filter, { page: parseInt(page?.toString() ?? "1"), limit: parseInt(limit?.toString() ?? "1") })
 
     return JsonResponse(res, {
         status: "success",
