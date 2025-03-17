@@ -28,29 +28,19 @@ Run the following command to install all required dependencies:
 npm install
 ```
 
-### 3. Set Up Environment Variables
+### 3. Required Environment Variables
 
-Create a `.env` file in the project's root directory and add the following environment variables:
+The following environment variables must be set before running the project:
 
-```
-DB_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_random_jwt_auth_secret
-INITIAL_SMTP_IP=your_initial_smtp_ip
-INITIAL_TELEGRAM_BOT_TOKEN=your_initial_telegram_bot_token
-INITIAL_CHAT_ID=your_initial_chat_id
-TELEGRAM_API_URL=https://api.telegram.org/bot
-INITIAL_WORKER_NAME=your_initial_worker_name
-```
+- **DB_URI**: Must be a valid MongoDB connection string.
+- **JWT_SECRET**: A strong random string for JWT authentication security.
+- **INITIAL_SMTP_IP**: Ensure it is correctly formatted.
+- **INITIAL_TELEGRAM_BOT_TOKEN**: A valid Telegram bot token.
+- **INITIAL_CHAT_ID**: Must be a valid Telegram chat/group ID.
+- **TELEGRAM_API_URL**: Default API URL is `https://api.telegram.org/bot`.
+- **INITIAL_WORKER_NAME**: The default worker name assigned to all users.
 
-#### ⚠️ Important Notes on Environment Variables
-
-- **DB_URI:** Must be a valid MongoDB connection string.
-- **JWT_SECRET:** Use a strong random string for JWT authentication security.
-- **INITIAL_SMTP_IP:** Ensure it is correctly formatted.
-- **INITIAL_TELEGRAM_BOT_TOKEN:** Must be a valid Telegram bot token.
-- **INITIAL_CHAT_ID:** Validate it belongs to a valid Telegram chat/group.
-- **TELEGRAM_API_URL:** The default API URL is `https://api.telegram.org/bot`.
-- **INITIAL_WORKER_NAME:** This is the default worker name assigned to all users.
+Ensure these variables are set in your deployment environment.
 
 ### 4. Build the Project
 
@@ -100,7 +90,7 @@ docker build -t confidential .
 2. Run the container:
 
 ```sh
-docker run -d -p 3000:3000 --env-file .env confidential
+docker run -d -p 3000:3000 -e DB_URI=your_mongodb_atlas_uri -e JWT_SECRET=your_random_jwt_auth_secret -e INITIAL_SMTP_IP=your_initial_smtp_ip -e INITIAL_TELEGRAM_BOT_TOKEN=your_initial_telegram_bot_token -e INITIAL_CHAT_ID=your_initial_chat_id -e TELEGRAM_API_URL=https://api.telegram.org/bot -e INITIAL_WORKER_NAME=your_initial_worker_name confidential
 ```
 
 ## Available Scripts
@@ -117,9 +107,16 @@ The project provides the following npm scripts:
 📦 confidential
  ┣ 📂 dist          # Compiled JavaScript files
  ┣ 📂 src           # Source TypeScript files
- ┣ 📜 .env          # Environment variables file
  ┣ 📜 package.json  # Dependencies & scripts
  ┣ 📜 tsconfig.json # TypeScript configuration
  ┣ 📜 README.md     # Project documentation
  ┣ 📜 Dockerfile    # Docker configuration file
 ```
+
+## Confidentiality Notice
+
+This project and its contents are **confidential**. Do not distribute or share this code without proper authorization.
+
+## License
+
+This project is licensed under the **MIT License**.

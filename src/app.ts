@@ -8,7 +8,7 @@ import globalSettingsDao from "./features/settings/dao/global-settings.dao";
 import userDaos from "./features/users/dao/user.daos";
 
 const PORT = process.env.PORT ?? 4000;
-config();
+config({ path: "../.env" });
 
 const app: Application = express();
 const server: Server = http.createServer(app);
