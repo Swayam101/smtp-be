@@ -12,12 +12,11 @@ export default async (req: Request, res: Response) => {
 
     if (search)
         filter.name = { $regex: search ?? "", $options: "i" }
-    console.log("inactive  :  ", inactive);
 
     if (inactive) filter.inactive = inactive?.toString() === "true"
 
 
-    const templates = await templateDao.getAllTemplates(filter, { page: parseInt(page?.toString() ?? "1"), limit: parseInt(limit?.toString() ?? "1") })
+    const templates = await templateDao.getAllTemplates(filter, { page: parseInt(page?.toString() ?? "1"), limit: parseInt(limit?.toString() ?? "1000") })
 
     return JsonResponse(res, {
         status: "success",
