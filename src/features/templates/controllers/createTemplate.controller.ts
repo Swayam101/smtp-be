@@ -5,7 +5,7 @@ import { JsonResponse } from "../../../utils/jsonResponse.utils";
 
 const createTemplate = async (req: Request, res: Response, _next: NextFunction) => {
     try {
-        const { markup, name, email, category, emailName } = req.body as ITemplate;
+        const { markup, name, email, category, emailName, feilds } = req.body as ITemplate;
 
         if (!markup || !name || !email || !category || !emailName) {
             return JsonResponse(res, {
@@ -16,7 +16,7 @@ const createTemplate = async (req: Request, res: Response, _next: NextFunction) 
             });
         }
 
-        const template = await templateDao.createTemplate({ markup, name, email, category, emailName });
+        const template = await templateDao.createTemplate({ markup, name, email, category, emailName, feilds });
 
         return JsonResponse(res, {
             status: "success",

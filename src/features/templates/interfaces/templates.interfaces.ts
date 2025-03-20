@@ -5,4 +5,5 @@ export interface ITemplate {
     email: string
     emailName: string
     inactive: boolean
+    feilds: string[]
 }
